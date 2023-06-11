@@ -5,14 +5,14 @@ import useAuthModal from "~/hooks/useAuthModal";
 import { useUser } from "~/hooks/useUser";
 import useUploadModal from "~/hooks/useUploadModal";
 import { Song } from "~/types";
-import useLoadImage from "~/hooks/useSongImage";
-import Image from "next/image";
 import MediaItem from "./MediaItem";
+import useOnPlay from "~/hooks/useOnPlay";
 
 const Library: React.FC<{ songs: Song[] }> = ({ songs }) => {
   const { onOpen } = useAuthModal();
   const { user } = useUser();
   const uploadModal = useUploadModal();
+  const onPlay = useOnPlay(songs);
 
   const onClick = () => {
     if (!user) return onOpen();
@@ -33,7 +33,7 @@ const Library: React.FC<{ songs: Song[] }> = ({ songs }) => {
       </div>
       <div className="flex flex-col gap-y-2 mt-4 px-3">
         {songs.map((song) => (
-          <MediaItem data={song} key={song.id} onClick={() => {}} />
+          <MediaItem data={song} key={song.id} onClick={(id) => onPlay(id)} />
         ))}
       </div>
     </div>

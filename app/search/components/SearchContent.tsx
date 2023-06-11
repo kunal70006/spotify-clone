@@ -2,9 +2,11 @@
 
 import LikeButton from "~/components/LikeButton";
 import MediaItem from "~/components/MediaItem";
+import useOnPlay from "~/hooks/useOnPlay";
 import { Song } from "~/types";
 
 const SearchContent: React.FC<{ songs: Song[] }> = ({ songs }) => {
+  const onPlay = useOnPlay(songs);
   if (songs.length === 0)
     return (
       <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
@@ -16,7 +18,7 @@ const SearchContent: React.FC<{ songs: Song[] }> = ({ songs }) => {
       {songs.map((song) => (
         <div key={song.id} className="flex items-center gap-x-4 w-full">
           <div className="flex-1">
-            <MediaItem data={song} onClick={() => {}} />
+            <MediaItem data={song} onClick={(id) => onPlay(id)} />
           </div>
           <LikeButton songId={song.id} />
         </div>
