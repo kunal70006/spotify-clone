@@ -13,7 +13,6 @@ interface ListItemProps {
 const ListItem: React.FC<ListItemProps> = ({ name, image, href }) => {
   const router = useRouter();
   const onClick = () => {
-    // TODO: add auth
     router.push(href);
   };
   return (
